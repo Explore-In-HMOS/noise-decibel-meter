@@ -4,7 +4,7 @@ export interface SettingsJson {
   maxvalue: number;
 }
 
-export class SettingsModel implements BaseModel{
+export class SettingsModel implements BaseModel {
   maxValue: number = 1000;
 
   constructor(maxValue: number) {
@@ -13,7 +13,7 @@ export class SettingsModel implements BaseModel{
 
   toJson(): SettingsJson {
     return {
-      maxvalue: this.maxValue,
+      maxvalue: this.maxValue
     };
   }
 

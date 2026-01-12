@@ -27,7 +27,7 @@ export struct SettingsView {
           .fontColor(Color.Red)
       }
 
-      Row(){
+      Row() {
         Button() {
           Image($r('sys.media.ohos_ic_public_arrow_left'))
             .fillColor(Color.White)

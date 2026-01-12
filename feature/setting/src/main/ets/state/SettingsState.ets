@@ -18,7 +18,7 @@ export class SettingsState {
       isLoading: updates.isLoading ?? this.isLoading,
       error: updates.error === null ? undefined : (updates.error ?? this.error),
       message: updates.message === null ? undefined : (updates.message ?? this.message),
-      maxValue: updates.maxValue ?? this.maxValue,
+      maxValue: updates.maxValue ?? this.maxValue
     });
   }
 

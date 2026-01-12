@@ -1,7 +1,7 @@
 {
   "app": {
-    "bundleName": "com.hmosdemo.noiseDecibelMeter",
-    "vendor": "example",
+    "bundleName": "com.hmosdemos.wearable.noise_decibel_meter",
+    "vendor": "hmosdemos",
     "versionCode": 1000000,
     "versionName": "1.0.0",
     "icon": "$media:layered_image",

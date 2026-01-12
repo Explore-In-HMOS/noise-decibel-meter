@@ -9,18 +9,19 @@ import { DashboardView } from 'dashboard/src/main/ets/view/DashboardView'
 @Component
 struct Index {
   @Builder
-  routeMap(name: string){
-    NavDestination(){
-      if (name === 'splash'){
+  routeMap(name: string) {
+    NavDestination() {
+      if (name === 'splash') {
         SplashView()
-      } else if (name === 'dashboard'){
+      } else if (name === 'dashboard') {
         DashboardView()
       } else if (name === 'settings') {
         SettingsView()
       } else {
         SplashView()
       }
-    }.hideBackButton(true)
+    }
+    .hideBackButton(true)
   }
 
   build() {

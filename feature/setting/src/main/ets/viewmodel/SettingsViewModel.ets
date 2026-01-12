@@ -31,9 +31,8 @@ export class SettingsViewModel {
 
   async init(): Promise<void> {
     this.state = this.state.with({isLoading: true})
-    const store = await StorageManager.getInstance()
-    const val = await store.getModelWithExpiry('settings',SettingsModel.fromJson)
-    this.controller.addText(val?.maxValue.toString())
+    const store = StorageManager.getInstance()
+    const val = await store.getModelWithExpiry('settings', SettingsModel.fromJson)
     this.state = this.state.with({isLoading: false,maxValue: val?.maxValue})
 
   }
@@ -42,14 +41,14 @@ export class SettingsViewModel {
     this.state = this.state.with({isLoading: true})
     const maxValue = this.getValue
     const settingsModel = new SettingsModel(maxValue);
-    const store = await StorageManager.getInstance()
-    await store.saveModelWithExpiry('settings',settingsModel,Duration.days(365))
+    const store = StorageManager.getInstance()
+    await store.saveModelWithExpiry('settings', settingsModel, Duration.days(365))
     this.state = this.state.with({isLoading: false,maxValue: maxValue})
     NavigationManager.getInstance().pageInfos.pushPath({name: 'dashboard'})
 
   }
 
-  setValue(value: number){
+  setValue(value: number) {
     this.state = this.state.with({maxValue: value})
   }
 

@@ -28,7 +28,7 @@ export class DashboardState {
       isLoading: false,
       error: null,
       message: '',
-      decibel: 0,
+      decibel: 0
     });
   }
 }

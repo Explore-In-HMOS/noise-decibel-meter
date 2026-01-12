@@ -28,7 +28,7 @@ export struct DashboardView {
       Stack() {
         AnimatedProgressButton({
           value: parseInt((this.state.decibel ?? 0).toFixed(0)),
-          type: ProgressType.Ring,
+          type: ProgressType.Ring
         })
 
         Text(`${this.state.decibel?.toFixed(2)} db`)
@@ -53,10 +53,6 @@ export struct DashboardView {
       .alignContent(Alignment.Center)
       .width('100%')
       .height('100%')
-
-
-
-
     }
     .width('100%')
     .height('100%')

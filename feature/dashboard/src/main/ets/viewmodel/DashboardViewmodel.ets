@@ -36,8 +36,8 @@ export class DashboardViewModel {
   }
 
   async initialize() {
-    const store = await StorageManager.getInstance()
-    const settings = await store.getModelWithExpiry('settings',SettingsModel.fromJson)
+    const store = StorageManager.getInstance()
+    const settings = await store.getModelWithExpiry('settings', SettingsModel.fromJson)
     const maxValue = settings?.maxValue ?? 1000
     const streamInfo: audio.AudioStreamInfo = {
       samplingRate: audio.AudioSamplingRate.SAMPLE_RATE_44100,
@@ -53,33 +53,50 @@ export class DashboardViewModel {
       streamInfo: streamInfo,
       capturerInfo: recorderInfo
     };
-    // 创建音频记录器
     audio.createAudioCapturer(recorderOptions, (err, recorder) => {
       if (err) {
         console.error(`创建音频记录器失败, 错误码: ${err.code}, 错误信息: ${err.message}`);
         return;
       }
+
       console.info(`${this.TAG}: 音频记录器创建成功`);
       this.audioRecorder = recorder;
-      if (this.audioRecorder !== undefined) {
-        let lastUpdate = 0;
 
-        this.audioRecorder.on('readData', (buffer: ArrayBuffer) => {
-          this.currentDecibel = this.calculateDecibel(buffer);
-          const now = Date.now();
-          if (now - lastUpdate > 500) {
-            lastUpdate = now;
-            this.state = this.state.with({ decibel: this.currentDecibel });
-            if (this.currentDecibel > maxValue ){
-              const notificationManager = NotificationManager.getInstance()
-              notificationManager.publishSimpleNotification('Warning','High decibel detected!')
-            }
-          }
-        });
-
+      if (!this.audioRecorder) {
+        return;
       }
+
+      this.audioRecorder.on('audioInterrupt', (interruptEvent: audio.InterruptEvent) => {
+        if (interruptEvent.forceType === audio.InterruptForceType.INTERRUPT_FORCE) {
+          switch (interruptEvent.hintType) {
+            case audio.InterruptHint.INTERRUPT_HINT_PAUSE:
+            case audio.InterruptHint.INTERRUPT_HINT_STOP:
+              this.stopRecording();
+              break;
+            default:
+              break;
+          }
+        } else if (
+          interruptEvent.forceType === audio.InterruptForceType.INTERRUPT_SHARE &&
+            interruptEvent.hintType === audio.InterruptHint.INTERRUPT_HINT_RESUME
+        ) {
+          this.startRecording();
+        }
+      });
+
+      let lastUpdate = 0;
+      this.audioRecorder.on('readData', (buffer: ArrayBuffer) => {
+        this.currentDecibel = this.calculateDecibel(buffer);
+        const now = Date.now();
+        if (now - lastUpdate > 500) {
+          lastUpdate = now;
+          this.state = this.state.with({ decibel: this.currentDecibel });
+        }
+      });
+
       this.startRecording();
     });
+
   }
 
   startRecording() {

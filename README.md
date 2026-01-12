@@ -6,9 +6,9 @@ Measure environmental sound levels (dB) on HarmonyOS Next (Huawei Watch 5). The 
 
 # Preview
 <div>
-  <img src="media/dashboard.png" width="24%">
-  <img src="media/settings.png" width="24%">
-  <img src="media/notification.png" width="24%">
+  <img src="screenshots/dashboard.png" width="24%">
+  <img src="screenshots/settings.png" width="24%">
+  <img src="screenshots/notification.png" width="24%">
 </div>
 
 
@@ -103,6 +103,6 @@ Measure environmental sound levels (dB) on HarmonyOS Next (Huawei Watch 5). The 
 
 # License
 
-**SoundDecibelMeter** is distributed under the terms of the MIT License
+**Noise Decibel Meter** is distributed under the terms of the MIT License
 
 See the [LICENSE](./LICENCE) for more information.

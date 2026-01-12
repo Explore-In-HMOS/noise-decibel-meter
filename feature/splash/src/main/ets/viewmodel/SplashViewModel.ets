@@ -27,13 +27,11 @@ export class SplashViewModel {
   }
 
 
-  async init(): Promise<void> {
+  async init(context: common.UIAbilityContext): Promise<void> {
     this.state = this.state.with({ isLoading: true });
 
-    //await new Promise<void>((resolve) => setTimeout(resolve, 5000));
-
     try {
-      const result = await this.requestMicPermission();
+      const result = await this.requestMicPermission(context);
       if (result === PermissionResult.Granted) {
         LogManager.info(this.TAG, 'Mic permission: GRANTED');
         this.state = this.state.with({isLoading: false})
@@ -49,30 +47,28 @@ export class SplashViewModel {
     }
 
     try {
-      const isNotificationPermissionGranted = await this.requestNotificationPermission();
-      if (isNotificationPermissionGranted){
-        LogManager.info(this.TAG,'Notification is granted')
+      const isNotificationPermissionGranted = await this.requestNotificationPermission(context);
+      if (isNotificationPermissionGranted) {
+        LogManager.info(this.TAG, 'Notification is granted')
       } else {
-        LogManager.info(this.TAG,'Notification is rejected')
+        LogManager.info(this.TAG, 'Notification is rejected')
       }
-    } catch (e){
-      LogManager.error(this.TAG,`Notification permission error: ${e}}`)
+    } catch (e) {
+      LogManager.error(this.TAG, `Notification permission error: ${e}`)
     } finally {
       this.state = this.state.with({ isLoading: false });
     }
   }
 
 
-  async requestMicPermission () : Promise<PermissionResult> {
+  async requestMicPermission(context: common.UIAbilityContext) : Promise<PermissionResult> {
     const pm = PermissionManager.getInstance();
-    const context = getContext(this) as common.UIAbilityContext;
-    const result = await pm.requestPermission(PermissionType.MIC,context) as PermissionResult
+    const result = await pm.requestPermission(PermissionType.MIC, context) as PermissionResult
     return result
   }
 
-  async requestNotificationPermission () : Promise<boolean> {
+  async requestNotificationPermission(context: common.UIAbilityContext) : Promise<boolean> {
     const nm = NotificationManager.getInstance()
-    const context = getContext(this) as common.UIAbilityContext;
     return await nm.requestPermission(context)
   }
 

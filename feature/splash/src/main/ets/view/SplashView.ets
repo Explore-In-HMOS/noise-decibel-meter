@@ -1,6 +1,7 @@
 import { ProgressComponent } from '../component/ProgressComponent'
 import { SplashState } from '../state/SplashState'
 import { SplashViewModel } from '../viewmodel/SplashViewModel'
+import { common } from '@kit.AbilityKit'
 
 
 @Entry
@@ -14,16 +15,19 @@ export struct SplashView {
     this.viewModel.addListener((newState : SplashState) => {
       this.state = newState
     })
-    this.viewModel.init()
+    const uiContext = globalThis.getUIContext?.() as common.UIAbilityContext;
+    this.viewModel.init(uiContext)
+
+    this.viewModel.init(uiContext)
   }
 
   build() {
-    Column(){
-      if (this.state.isLoading){
+    Column() {
+      if (this.state.isLoading) {
           LoadingProgress()
       }
 
-      if (this.state.error){
+      if (this.state.error) {
         Text(this.state.error)
           .fontColor(Color.Red)
           .margin({top: 20})
