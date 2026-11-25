@@ -105,4 +105,4 @@ Measure environmental sound levels (dB) on HarmonyOS (Huawei Watch 5). The app r
 
 **Noise Decibel Meter** is distributed under the terms of the MIT License
 
-See the [LICENSE](./LICENCE) for more information.
+See the [LICENSE](./LICENSE) for more information.
