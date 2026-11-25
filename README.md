@@ -2,7 +2,7 @@
 
 # SoundDecibelMeter
 
-Measure environmental sound levels (dB) on HarmonyOS Next (Huawei Watch 5). The app records short audio frames, computes decibels in real time, and visualizes the result with a smooth animated ring.
+Measure environmental sound levels (dB) on HarmonyOS (Huawei Watch 5). The app records short audio frames, computes decibels in real time, and visualizes the result with a smooth animated ring.
 
 # Preview
 <div>
